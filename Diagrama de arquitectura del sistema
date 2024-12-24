@@ -1,0 +1,26 @@
+flowchart TB
+    subgraph Cliente
+    A[Usuario Final] --> B[Navegador Web]
+    end
+    
+    subgraph Frontend
+    B --> C[Interface Web]
+    C --> D[Vue Components]
+    C --> E[Blade Templates]
+    end
+    
+    subgraph Backend
+    C --> F[Controllers]
+    F --> G[Services]
+    G --> H[Repositories]
+    end
+    
+    subgraph Database
+    H --> I[(MySQL)]
+    H --> J[(Redis Cache)]
+    end
+    
+    subgraph Background Jobs
+    G --> K[Queue Workers]
+    K --> L[Jobs Processor]
+    end
