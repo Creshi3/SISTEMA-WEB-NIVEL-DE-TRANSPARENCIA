@@ -1,0 +1,22 @@
+flowchart TB
+    subgraph Data Collection
+    A[Web Scraping] --> C[Data Validator]
+    B[API Integration] --> C
+    end
+    
+    subgraph Processing
+    C --> D[Data Pipeline]
+    D --> E[Transformation]
+    E --> F[Storage]
+    end
+    
+    subgraph Evaluation
+    F --> G[Score Calculator]
+    G --> H[Trend Analyzer]
+    H --> I[Alert System]
+    end
+    
+    subgraph Output
+    I --> J[Reports]
+    I --> K[Notifications]
+    end
