@@ -1,0 +1,195 @@
+
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { Search, Bell, Download, Filter, Menu } from 'lucide-react';
+
+const TransparencySystem = () => {
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedYear, setSelectedYear] = useState('2024');
+
+  const transparencyData = [
+    { month: 'Ene', ITWD: 93, ITWPO: 73, ITWP: 100 },
+    { month: 'Feb', ITWD: 94, ITWPO: 75, ITWP: 100 },
+    { month: 'Mar', ITWD: 95, ITWPO: 78, ITWP: 100 },
+    { month: 'Abr', ITWD: 93, ITWPO: 80, ITWP: 100 }
+  ];
+
+  const indexData = [
+    { name: 'Datos Generales', value: 93, color: '#10B981' },
+    { name: 'Planeamiento', value: 73.33, color: '#F59E0B' },
+    { name: 'Presupuesto', value: 100, color: '#10B981' },
+    { name: 'Proyectos', value: 40, color: '#EF4444' },
+    { name: 'Personal', value: 25, color: '#EF4444' },
+    { name: 'Contrataciones', value: 64, color: '#F59E0B' },
+    { name: 'Actividades', value: 75, color: '#F59E0B' },
+    { name: 'Info. Pública', value: 100, color: '#10B981' },
+    { name: 'Reg. Visitas', value: 100, color: '#10B981' }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {/* Header */}
+      <header className="bg-white shadow">
+        <div className="flex justify-between items-center px-6 py-4">
+          <div className="flex items-center space-x-4">
+            <Menu className="h-6 w-6" />
+            <h1 className="text-xl font-bold">Sistema de Transparencia - UNA Puno</h1>
+          </div>
+          <div className="flex items-center space-x-4">
+            <Bell className="h-6 w-6 text-gray-500" />
+            <div className="h-8 w-8 rounded-full bg-blue-500 text-white flex items-center justify-center">
+              AP
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="p-6">
+        {/* Search and Filters */}
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center space-x-4 bg-white rounded-lg px-4 py-2 shadow">
+            <Search className="h-5 w-5 text-gray-400" />
+            <input 
+              type="text" 
+              placeholder="Buscar indicadores..." 
+              className="border-none focus:outline-none"
+            />
+          </div>
+          <div className="flex space-x-4">
+            <button className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg shadow">
+              <Filter className="h-5 w-5" />
+              <span>Filtros</span>
+            </button>
+            <button className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg shadow">
+              <Download className="h-5 w-5" />
+              <span>Exportar</span>
+            </button>
+          </div>
+        </div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-gray-500">Índice Global</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">74.5%</div>
+              <div className="text-sm text-green-500">↑ 2.1% vs mes anterior</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-gray-500">Indicadores Cumplidos</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">45/61</div>
+              <div className="text-sm text-green-500">↑ 3 nuevos este mes</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-gray-500">Áreas Óptimas</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">4</div>
+              <div className="text-sm text-gray-500">De 9 áreas totales</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm text-gray-500">Alertas Activas</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-500">2</div>
+              <div className="text-sm text-red-500">Requieren atención</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Evolución de Índices Principales</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={transparencyData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="ITWD" stroke="#10B981" name="Datos Generales" />
+                    <Line type="monotone" dataKey="ITWPO" stroke="#F59E0B" name="Planeamiento" />
+                    <Line type="monotone" dataKey="ITWP" stroke="#3B82F6" name="Presupuesto" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Estado Actual por Área</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={indexData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis type="number" domain={[0, 100]} />
+                    <YAxis dataKey="name" type="category" width={100} />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#3B82F6" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Recent Updates */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Actualizaciones Recientes</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                <div>
+                  <p className="font-medium">Actualización de Presupuesto</p>
+                  <p className="text-sm text-gray-500">Hace 2 horas</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+                <div>
+                  <p className="font-medium">Nuevo Indicador de Personal</p>
+                  <p className="text-sm text-gray-500">Hace 5 horas</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+                <div>
+                  <p className="font-medium">Alerta: Actualización Pendiente</p>
+                  <p className="text-sm text-gray-500">Hace 1 día</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
+    </div>
+  );
+};
+
+export default TransparencySystem;
